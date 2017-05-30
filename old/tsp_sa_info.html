@@ -1,0 +1,97 @@
+<HTML>
+
+<!--------------------------------------------------->
+<!--     AUTHOR:   Claude D. Edwards               -->
+<!--     E-MAIL:   pja@crl.com                     -->
+<!--     CREATED:  September 22, 1996              -->
+<!--     MODIFIED: September 25, 1997              -->
+<!--     FILE:     tsp_sa_info.html                -->
+<!--     PURPOSE:  Travelling Salesman Java Demo   -->
+<!--------------------------------------------------->
+
+<HEAD>
+<TITLE>Java Demo: Travelling Salesman Explained</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<H1>Travelling Salesman Solution via Simulated Annealing</H1>
+
+<P>   The <STRONG>Travelling Salesman Problem</STRONG> is one of a number of classic Computer Science problems that belong in the class NP Complete.  
+First, the class of problems P exists such that a solution to the problem with n inputs can be found in P(n) where P(n) is a polynomial in n.  
+For example most sorting algorithms execute some factor of n^2 (n squared) steps given n items to sort.  
+Similarly, matrix operations quite often require a factor of n^3 computational steps.   The number of steps needed can be expressed by a Polynomial.  
+As n goes up, the number of steps required to solve the problem go up by n^2 or n^3, or even large powers of n.  This may seem like a problem for large values of n 
+but that is nothing compared to the steps required for NP Complete problems.
+
+<P>   NP Complete means that no solution has been found to this class of problem with Polynomial complexity, but no one has ever proven that no polynomial solution exists.  
+Such problems require exponential or combinatorial expressions in n.  The expression for the number of steps required may have n in an exponent e.g. a^n or even n^n.  
+The <STRONG>Traveling Salesman Problem</STRONG> is combinatorial, which means that the number of steps to reach a solution depends on a factor of n factorial (n!).  
+Combinatorials and exponentials expressions grow much faster as n increases than do polynomials.  So much so in fact, that for large, or even medium values of n 
+many of these problems are practically unsolvable even with the fastest super-computers known to man.  
+
+<P>   Another illustration of the problem is in robotics and manufacturing.  
+A robot arm has to move over a mother-board and solder a number of chips into place.  In what order should the arm visit the chips to minimize manufacturing costs and time.  
+The only known deterministic solution to this problem is to examine each possible sequence of chips and keep track of the shortest path.  
+Unfortunately, the number of possible sequences of n items is n factorial (n!).  
+The following table illustrates how fast factorials grow.
+</P>
+
+
+<TABLE BORDER>
+<CAPTION ALIGN=TOP>Factorials</CAPTION>
+<TR> <TH ALIGN=right> n</TH> <TH ALIGN=right>  n! </TH> </TR>
+<TR> <TD ALIGN=right> 1</TD> <TD ALIGN=right>  1 </TD> </TR>
+<TR> <TD ALIGN=right> 2</TD> <TD ALIGN=right>  2 </TD> </TR>
+<TR> <TD ALIGN=right> 3</TD> <TD ALIGN=right>  6 </TD> </TR>
+<TR> <TD ALIGN=right> 4</TD> <TD ALIGN=right>  24 </TD> </TR>
+<TR> <TD ALIGN=right> 5</TD> <TD ALIGN=right>  120 </TD> </TR>
+<TR> <TD ALIGN=right> 6</TD> <TD ALIGN=right>  720 </TD> </TR>
+<TR> <TD ALIGN=right> 7</TD> <TD ALIGN=right>  5040 </TD> </TR>
+<TR> <TD ALIGN=right> 8</TD> <TD ALIGN=right>  40320 </TD> </TR>
+<TR> <TD ALIGN=right> 9</TD> <TD ALIGN=right>  362880 </TD> </TR>
+<TR> <TD ALIGN=right>10</TD> <TD ALIGN=right>  3628800 </TD> </TR>
+<TR> <TD ALIGN=right>11</TD> <TD ALIGN=right>  39916800 </TD> </TR>
+<TR> <TD ALIGN=right>20</TD> <TD ALIGN=right>  2.43 E18 </TD> </TR>
+</TABLE>
+
+<P>                                                                                                                                     
+For  4 chips, there are a manageable 24 sequences, for 6 a respectable 720, and for 10, there are 3.6 million.  
+If the salesman were visiting all the state capitols, he would have to evaluate  8.06 E67 possible round trips to find the shortest one.  
+That number is so big, that even evaluating trillions per second it could not be done in a lifetime.  
+Most calculators display an Error when asked to evaluate 70!.   69! is the largest most can handle.  
+The Windows 95 calculator by the way can handle up to 170!.  
+
+<P> <STRONG>Simulated Annealing</STRONG> brings to the table a very fast way to guess the correct solution. 
+It simulates the behavior of metallurgical annealing, in which the molecules in the metal try to achieve a low energy state as the metal cools.  
+Simulated Annealing is non-deterministic, meaning basically that is uses random numbers and does not claim to come up with *the* solution.  
+It's solutions however, by visual examination are usually very near the shortest path, and may sometimes be actually right on it.  
+This examples uses a whopping 111 cities!  A combinatorial solution would require a multiple of 1.76E180 computational steps.  
+All the computers in the world, running for the age of our universe, could not execute that many instructions.  
+I have heard conservative estimates of the number of particles in the universe that are smaller than that number.  
+This applet on the other hand, has to perform a short delay in between each change so that the user can actually see what's going on.  
+
+<P>   <STRONG>How it Works.</STRONG>  The algorithm starts with an array of cities in the randomly created order.  It starts 'hot' with a temperature T which will slowly decrease.  
+For each value of T, I evaluate a number of possible changes to the order of the cities.  
+For each change, I randomly pick two indexes from the array, and either reverse the segment between them, or transport the segment to a different position in the array.  
+This change in the order will cause a change in the total path length.  If the change is negative, i.e. the path length is reduced, 
+then the change is always accepted.  If the change is positive, then the annealing formula is used to determine whether to accept it or not.  The key to simulated annealing 
+is its greater willingness to accept a change that brings about an increase in the path length, earlier on in the sequence.  The likelihood of accepting a positive change 
+decreases as T decreases.  Also, the smaller the increase in the path length, the more likely that the change will be accepted.  
+The maximum number of changes that may be accepted for each value of T is 10 * the number of cities.  
+The maximum number of changes evaluated for each value of T is 100 * the number of cities.  
+When either one of these quantities is reached, T is decreased by a factor of 0.9. 
+If for any value of T, no changes are accepted, the applet will end.  
+The applet will also end after at most 100 values of T.  It never gets that far however.  
+When T starts getting small (cold), and the path is almost minimal, accepted changes get very rare.  
+The applet uses a small delay in between accepted changes to make the action more viewable.  
+</P>
+
+<HR SIZE=1>
+<P> Back to my <A HREF="index.html">Java page.</A>  </P>
+<P> Back to my <A HREF="../index.html">home page.</A>  </P>
+
+
+</BODY>
+</HTML>
+

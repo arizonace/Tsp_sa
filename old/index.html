@@ -1,0 +1,61 @@
+<html>
+
+<!--------------------------------------------------->
+<!--     AUTHOR:   Claude D. Edwards               -->
+<!--     E-MAIL:   pja@crl.com                     -->
+<!--     CREATED:  September 22, 1996              -->
+<!--     MODIFIED: September 25, 1997              -->
+<!--     FILE:     java/index.html                 -->
+<!--     PURPOSE:  Java Demo                       -->
+<!--------------------------------------------------->
+
+<head>
+<title>Java Demo: Travelling Salesman</title>
+</head>
+
+<body bgcolor="#000000" text="#FFFFFF" link="#FFFF00" vlink="#FFFF80">
+
+<h1>Travelling Salesman Solution via Simulated Annealing</h1>
+<hr size="4">
+<applet code="Tsp_sa.class" width="500" height="360" align="center">
+<param name="font" value="TimesRoman">
+<param name="point_size" value="12">
+<param name="temp_delay" value="50">
+<param name="change_delay" value="10">
+<param name="num_cities" value="111">
+
+<img src="tsp_sa.gif" width="500" height="360"><p>
+</applet>
+<hr size="4">
+<p> NOTE: You must have a Java enabled browser e.g. <a href="http://www.netscape.com">Netscape 32-bit</a> or <a href="http://www.microsoft.com/ie">Internet Explorer</a> to view the above applet.  
+If your browser does not support Java, or you have enable Java applets turned off in your preferences, there will be a static graphic saying &quot;you need java&quot;, or
+nothing between the two horizontal separator lines above.
+
+<p>This demo demonstrates a possible solution to the classic <strong>Traveling Salesman Problem.</strong>
+It attempts to find the shortest round-trip connecting the set of cities that a salesman must visit.  
+It places about a hundred cities at random points in the applet's area, and then uses the 
+<strong>simulated annealing</strong> algorithm to estimate the shortest path.  
+The status bar of your browser should be continuously updated with the current total path length as well as the Temperature.  
+More on the temperature later.  When the applet has finished, it will display the text &quot;DONE:&quot; in the status bar 
+followed by the final path length.  Click on the [Refresh] or [Reload] button in your browser to start the applet over.  
+The applet slows down the action by including a delay between steps.  
+
+<p> For more information about the Travelling Salesman, and why his problem is important
+to computer science, visit <a href="tsp_sa_info.html">Travelling Salesmen Explained.</a>
+</p>
+
+<p> Well, that's my <strong>token Java applet</strong> for my web-page.  If you want someone to do <b>Java
+programming</b> for you, I may be your man.  Personally I love the language, and am encouraged
+by how popular it has become.  All languages have their advantages and disadvantages, but
+Java is more elegant, safer, and more portable than most.
+</p>
+
+<hr size="1">
+<p> Back to my <a href="../index.html">home page.</a>  </p>
+
+<p> <font size="1">HTML by me:  Java by me:  Contact me <a href="mailto:pja@crl.com">pja@crl.com</a>
+</font>
+
+</body>
+</html>
+
